@@ -19,4 +19,18 @@ class ArchitectureTest {
 
         rule.check(importedClasses)
     }
+
+//
+//    @Test
+//    fun `domain should not depend on infrastructure`() {
+//        val importedClasses: JavaClasses = ClassFileImporter().importPackages("ch.keepcalm")
+//
+//        val rule: ArchRule = noClasses()
+//            .that().resideInAPackage("..domain..")
+//            .should().dependOnClassesThat()
+//            .resideInAPackage("..infrastructure..")
+//
+//        rule.check(importedClasses)
+//    }
+
 }
