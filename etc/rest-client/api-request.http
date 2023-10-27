@@ -1,0 +1,2 @@
+### Call One Partner
+GET  http://localhost:8080/partners/1
