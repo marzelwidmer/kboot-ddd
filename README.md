@@ -15,3 +15,6 @@ SPRING_PROFILES_ACTIVE=standalone mvn clean spring-boot:run -pl application-modu
 
 
 
+## ArchUnit
+Enable the following **domain** class  `src/main/kotlin/ch/keepcalm/domain/SomeDomainClassThatBrakeArchRules.kt`
+to break the `OnionArchitekure` **rule**.
