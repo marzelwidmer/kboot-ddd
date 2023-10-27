@@ -23,6 +23,7 @@
 		<java.version>17</java.version>
 		<kotlin.version>1.9.10</kotlin.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
+		<archunit.version>1.1.0</archunit.version>
 	</properties>
 
 	<dependencies>
@@ -31,6 +32,7 @@
 			<artifactId>domain-module</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,6 +57,20 @@
 		<dependency>
 			<groupId>org.jetbrains.kotlinx</groupId>
 			<artifactId>kotlinx-coroutines-reactor</artifactId>
+		</dependency>
+
+		<!-- ArchUnit -->
+		<dependency>
+			<groupId>com.tngtech.archunit</groupId>
+			<artifactId>archunit-junit5-api</artifactId>
+			<version>${archunit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.archunit</groupId>
+			<artifactId>archunit-junit5-engine</artifactId>
+			<version>${archunit.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
