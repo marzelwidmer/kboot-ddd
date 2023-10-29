@@ -14,39 +14,57 @@ SPRING_PROFILES_ACTIVE=standalone mvn clean spring-boot:run -pl application-modu
 * *etc/rest-client*: Contains an HTTP request file, which is likely used for testing your API endpoints.
 
 
-Some ideas how to organize files.
 
-For a simple "Partner" bounded context:
+
+
 ```bash
-partner
-├── Partner.kt (Domain Model)
-├── PartnerRepository.kt (Domain Repository)
-├── PartnerService.kt (Domain Service)
-├── PartnerDTO.kt (DTOs)
-└── PartnerRedisRepository.kt (Infrastructure Repository)
+.
+└── src
+    └── main
+        └── kotlin
+            └── ch.keepcalm
+                └── application (Application layer)
+                │   └── partner
+                │       └── PartnerService.kt (Service for partner-related operations)
+                │
+                └── domain (Domain layer)
+                │   └── partner
+                │       ├── Partner.kt (Domain entity representing a partner)
+                │       └── PartnerRepository.kt (Repository interface for partner entities)
+                │
+                └── infrastructure (Infrastructure layer)
+                │   └── partner
+                │       └── redis (Redis-specific components)
+                │       │   ├── PartnerRedisRepository.kt (Implements the Redis repository for partner data)
+                │       │   ├── RedisConfig.kt (Redis configuration)
+                │       │
+                │       └── mongodb (MongoDB-specific components)
+                │       │   ├── PartnerMongoRepository.kt (Implements the MongoDB repository for partner data)
+                │       │   ├── MongoConfig.kt (MongoDB configuration)
+                │
+                └── shared (Shared components used across layers)
+                │   └── CommonUtils.kt (Shared utility functions used across the application)
+                │
+                └── Application.kt (Main application entry point)
+                └── WebConfig.kt (Web-related configuration)
+
 ```
+In this structure:
 
-For separate bounded contexts with different storage technologies:
-```bash
-partner
-├── ...
-├── partnerRedis
-│   ├── RedisPartner.kt (Domain Model for Redis)
-│   └── RedisPartnerRepository.kt (Repository for Redis)
-├── partnerMongo
-│   ├── MongoPartner.kt (Domain Model for MongoDB)
-│   └── MongoPartnerRepository.kt (Repository for MongoDB)
-```
+* *application/partner*: This directory contains the application layer for the "partner" domain.
+The PartnerService.kt file likely contains service classes and business logic related to the "partner" domain.
 
-For shared code in a common package:
-```bash
-common
-├── utilities
-└── exceptions
+* *domain/partner*: This directory represents the domain layer for the "partner" domain.
+The Partner.kt file typically contains the domain model class representing a partner,
+and the PartnerRepository.kt file may define the interface for the repository responsible for storing and retrieving partner-related data.
 
-partner
-├── ...
+* *infrastructure*:
+- The "mongo" folder contains MongoDB-specific components.
+- The "redis" folder contains Redis-specific components.
+- The "shared" folder can hold shared components like exception classes.
 
-order
-├── ...
-```
+
+
+
+
+
