@@ -7,4 +7,4 @@ Content-Type: application/json
 }
 
 ### Get Partner - Add the ID from Create Partner from ServerLog
-GET  http://localhost:8080/partners/2c6fb819-8085-4ab3-9c99-a256707c6a9e
+GET  http://localhost:8080/partners/1d5050d5-d1fb-49f7-ac04-ecfe2e35bfcc

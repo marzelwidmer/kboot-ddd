@@ -28,6 +28,7 @@
 
 		<kotlin.version>1.9.10</kotlin.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
+		<kotlin-logging.version>5.1.0</kotlin-logging.version>
 		<!--	Test	-->
 		<archunit.version>1.1.0</archunit.version>
 	</properties>
@@ -37,6 +38,12 @@
 			<groupId>ch.keepcalm</groupId>
 			<artifactId>domain-module</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.oshai</groupId>
+			<artifactId>kotlin-logging-jvm</artifactId>
+			<version>${kotlin-logging.version}</version>
 		</dependency>
 
 		<dependency>
