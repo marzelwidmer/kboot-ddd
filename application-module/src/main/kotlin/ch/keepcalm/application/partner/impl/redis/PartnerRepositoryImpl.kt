@@ -1,26 +1,19 @@
-package ch.keepcalm.application.partner.impl
+package ch.keepcalm.application.partner.impl.redis
 
 import ch.keepcalm.ddd.partner.Partner
 import ch.keepcalm.ddd.partner.PartnerId
 import ch.keepcalm.ddd.partner.PartnerName
 import ch.keepcalm.domain.partner.PartnerRepository
-import ch.keepcalm.infrastructure.partner.PartnerDTO
-import ch.keepcalm.infrastructure.partner.PartnerRedisRepository
+import ch.keepcalm.infrastructure.partner.redis.PartnerDTO
+import ch.keepcalm.infrastructure.partner.redis.PartnerRedisRepository
+import org.springframework.context.annotation.Primary
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
-//
-//@Component
-//class PartnerRepositoryImpl : PartnerRepository {
-//    override fun findById(id: Long): Partner? {
-//        println("----------> $id")
-//        return Partner(id = 1, name = PartnerName(value = " John "))
-//    }
-//
-//    override fun save(partner: Partner) {
-//        println("----------> $partner")
-//    }
-//}
 
+
+@Profile("redis")
+@Primary
 @Repository
 class PartnerRepositoryRedisImpl(
     private val partnerRedisRepository: PartnerRedisRepository

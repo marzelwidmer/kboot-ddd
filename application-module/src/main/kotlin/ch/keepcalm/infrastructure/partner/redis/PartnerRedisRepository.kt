@@ -1,4 +1,4 @@
-package ch.keepcalm.infrastructure.partner
+package ch.keepcalm.infrastructure.partner.redis
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository

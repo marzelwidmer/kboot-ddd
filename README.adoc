@@ -1,7 +1,12 @@
 = kboot-ddd with ArchUnit and Onion Architecture
 
+.inMemory version
 ----
-SPRING_PROFILES_ACTIVE=standalone mvn clean spring-boot:run -pl application-module
+SPRING_PROFILES_ACTIVE=inMemory mvn clean spring-boot:run -pl application-module
+----
+.Redis version
+----
+SPRING_PROFILES_ACTIVE=redis mvn clean spring-boot:run -pl application-module
 ----
 
 * *domain-module*: This module contains your domain models, which are `Partner` and `PartnerName` in this case.
