@@ -9,14 +9,30 @@ SPRING_PROFILES_ACTIVE=inMemory mvn clean spring-boot:run -pl application-module
 SPRING_PROFILES_ACTIVE=redis mvn clean spring-boot:run -pl application-module
 ----
 
-* *domain-module*: This module contains your domain models, which are `Partner` and `PartnerName` in this case.
 
-* *application-module*: This module is divided into three main parts:
+== Project Structure
 
-** *domain*: Contains the `PartnerRepository` interface which defines the operations that can be performed on `Partner`.
-** *application*: Contains the application-specific logic, which includes `PartnerController`, `PartnerService`, and `PartnerRepositoryImpl`. The `PartnerRepositoryImpl` is an implementation of the `PartnerRepository` interface.
-** *infrastructure*: While it’s currently empty, this is where you’d typically put code that interacts with external systems like databases or web services.
-* *etc/rest-client*: Contains an HTTP request file, which is likely used for testing your API endpoints.
+- `application-module`: This module contains the application code for your project.
+
+- `application`: This package holds application-level code, including controllers and service classes.
+- `PartnerController.kt`: Manages the web endpoints for partner-related operations.
+- `PartnerService.kt`: Implements business logic and orchestrates interactions with the domain and infrastructure layers.
+
+- `domain`: This package represents the domain layer and contains domain model definitions.
+- `PartnerRepository.kt`: Defines the interface for repository operations related to partners.
+
+- `infrastructure`: In this package, you manage infrastructure-related code.
+- `logging`: Contains classes related to logging requests and responses.
+- `RequestResponseLogger.kt`: Logs request and response information.
+- `logger.kt`: Global logger functions.
+- `partner`: Manages data related to the "partner" domain.
+- `inMemory`: This sub-package contains an in-memory implementation of the partner repository.
+- `PartnerRepositoryInMemoryImpl.kt`: Implements the PartnerRepository interface for in-memory data storage.
+- `redis`: This sub-package is for Redis-specific components.
+- `PartnerRepositoryRedisImpl.kt`: Implements the PartnerRepository interface for Redis data storage.
+- `PartnerDTO.kt`: Represents a data transfer object for partners when using Redis.
+- `PartnerRedisRepository.kt`: Manages interactions with Redis for partner data.
+
 
 
 
@@ -31,6 +47,7 @@ SPRING_PROFILES_ACTIVE=redis mvn clean spring-boot:run -pl application-module
                 └── application (Application layer)
                 │   └── partner
                 │       └── PartnerService.kt (Service for partner-related operations)
+                │       └── PartnerController.kt (Controller for partner-related API)
                 │
                 └── domain (Domain layer)
                 │   └── partner
@@ -40,18 +57,14 @@ SPRING_PROFILES_ACTIVE=redis mvn clean spring-boot:run -pl application-module
                 └── infrastructure (Infrastructure layer)
                 │   └── partner
                 │       └── redis (Redis-specific components)
-                │       │   ├── PartnerRedisRepository.kt (Implements the Redis repository for partner data)
-                │       │   ├── RedisConfig.kt (Redis configuration)
+                │       │   ├── PartnerRedisRepository.kt (Redis Repository interface for partner data)
+                │       │   └── PartnerRedisRepositoryImpl.kt (Implements the Redis repository for partner data)
                 │       │
                 │       └── mongodb (MongoDB-specific components)
-                │       │   ├── PartnerMongoRepository.kt (Implements the MongoDB repository for partner data)
-                │       │   ├── MongoConfig.kt (MongoDB configuration)
-                │
-                └── shared (Shared components used across layers)
-                │   └── CommonUtils.kt (Shared utility functions used across the application)
+                │           ├── PartnerMongoRepository.kt (Implements the MongoDB repository for partner data)
+                │           └── MongoConfig.kt (MongoDB configuration)
                 │
                 └── Application.kt (Main application entry point)
-                └── WebConfig.kt (Web-related configuration)
 
 ```
 In this structure:
@@ -66,7 +79,6 @@ and the PartnerRepository.kt file may define the interface for the repository re
 * *infrastructure*:
 - The "mongo" folder contains MongoDB-specific components.
 - The "redis" folder contains Redis-specific components.
-- The "shared" folder can hold shared components like exception classes.
 
 
 
