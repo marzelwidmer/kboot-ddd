@@ -29,6 +29,7 @@
 		<kotlin.version>1.9.10</kotlin.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
 		<kotlin-logging.version>5.1.0</kotlin-logging.version>
+		<gitlog-maven-plugin.version>1.14.0</gitlog-maven-plugin.version>
 		<!--	Test	-->
 		<archunit.version>1.1.0</archunit.version>
 	</properties>
@@ -196,6 +197,23 @@
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<release>${java.version}</release>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.danielflower.mavenplugins</groupId>
+				<artifactId>gitlog-maven-plugin</artifactId>
+				<version>${gitlog-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<asciidocTableView>true</asciidocTableView>
+					<generateAsciidocChangeLog>true</generateAsciidocChangeLog>
 				</configuration>
 			</plugin>
 
