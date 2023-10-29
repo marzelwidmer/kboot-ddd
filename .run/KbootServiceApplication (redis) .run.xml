@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="KbootServiceApplication (redis) " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="KbootServiceApplication (redis) " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="SpringBoot">
     <option name="ACTIVE_PROFILES" value="redis" />
     <module name="application-module" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="ch.keepcalm.KbootServiceApplicationKt" />
