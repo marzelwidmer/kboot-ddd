@@ -1,11 +1,12 @@
 package ch.keepcalm
 
-import ch.keepcalm.demo.partner.Partner
-import ch.keepcalm.demo.partner.PartnerName
+import ch.keepcalm.ddd.partner.Partner
+import ch.keepcalm.ddd.partner.PartnerName
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.support.beans
+import java.util.UUID
 
 @SpringBootApplication
 class KbootServiceApplication
@@ -16,12 +17,10 @@ fun main(args: Array<String>) {
             beans {
                 bean {
                     ApplicationRunner { println("ApplicationRunner ----------------->") }
-                    val partner = Partner(id = 1L, PartnerName(value = "John"))
+                    val partner = Partner(id = UUID.randomUUID().toString(), PartnerName(value = "John"))
                     println(partner.name)
                 }
             }
         )
     }
 }
-
-

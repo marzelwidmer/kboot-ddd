@@ -3,3 +3,8 @@ spring:
     contract:
       verifier:
         enabled: false
+  application:
+    name: kboot-ddd-demo
+  data:
+    redis:
+      host: localhost

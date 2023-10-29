@@ -1,14 +1,15 @@
 package ch.keepcalm.application.partner
 
-import ch.keepcalm.demo.partner.Partner
+import ch.keepcalm.ddd.partner.Partner
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/partners")
 class PartnerController(private val partnerService: PartnerService) {
+
     @PostMapping
-    fun createPartner(@RequestBody name: String): Partner {
-        return partnerService.createPartner(name)
+    fun createPartner(@RequestBody name: String) {
+        partnerService.createPartner(name)
     }
 
     @GetMapping("/{id}")

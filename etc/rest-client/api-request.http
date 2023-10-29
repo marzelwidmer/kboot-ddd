@@ -1,2 +1,11 @@
-### Call One Partner
+### Get Partner
 GET  http://localhost:8080/partners/1
+
+### Create Partner
+POST http://localhost:8080/partners
+Content-Type: application/json
+
+{
+  "name": "foo"
+}
+
