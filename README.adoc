@@ -12,3 +12,41 @@ SPRING_PROFILES_ACTIVE=standalone mvn clean spring-boot:run -pl application-modu
 ** *application*: Contains the application-specific logic, which includes `PartnerController`, `PartnerService`, and `PartnerRepositoryImpl`. The `PartnerRepositoryImpl` is an implementation of the `PartnerRepository` interface.
 ** *infrastructure*: While it’s currently empty, this is where you’d typically put code that interacts with external systems like databases or web services.
 * *etc/rest-client*: Contains an HTTP request file, which is likely used for testing your API endpoints.
+
+
+Some ideas how to organize files.
+
+For a simple "Partner" bounded context:
+```bash
+partner
+├── Partner.kt (Domain Model)
+├── PartnerRepository.kt (Domain Repository)
+├── PartnerService.kt (Domain Service)
+├── PartnerDTO.kt (DTOs)
+└── PartnerRedisRepository.kt (Infrastructure Repository)
+```
+
+For separate bounded contexts with different storage technologies:
+```bash
+partner
+├── ...
+├── partnerRedis
+│   ├── RedisPartner.kt (Domain Model for Redis)
+│   └── RedisPartnerRepository.kt (Repository for Redis)
+├── partnerMongo
+│   ├── MongoPartner.kt (Domain Model for MongoDB)
+│   └── MongoPartnerRepository.kt (Repository for MongoDB)
+```
+
+For shared code in a common package:
+```bash
+common
+├── utilities
+└── exceptions
+
+partner
+├── ...
+
+order
+├── ...
+```
