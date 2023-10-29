@@ -13,7 +13,7 @@ class PartnerController(private val partnerService: PartnerService) {
     }
 
     @GetMapping("/{id}")
-    fun getPartner(@PathVariable id: Long): Partner? {
+    fun getPartner(@PathVariable id: String): Partner? {
         return partnerService.getPartnerById(id)
     }
 }

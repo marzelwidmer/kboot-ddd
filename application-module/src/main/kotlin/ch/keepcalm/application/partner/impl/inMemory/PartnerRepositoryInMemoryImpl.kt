@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 @Profile("inMemory")
 @Repository
 class PartnerServiceInMemoryImpl(private val partnerRepository: PartnerRepository) {
-    fun getPartner(id: Long): Partner? {
+    fun getPartner(id: String): Partner? {
         return partnerRepository.findById(id)
     }
 
@@ -16,15 +16,3 @@ class PartnerServiceInMemoryImpl(private val partnerRepository: PartnerRepositor
         partnerRepository.save(partner)
     }
 }
-
-//@Component
-//class PartnerRepositoryImpl : PartnerRepository {
-//    override fun findById(id: Long): Partner? {
-//        println("----------> $id")
-//        return Partner(id = 1, name = PartnerName(value = " John "))
-//    }
-//
-//    override fun save(partner: Partner) {
-//        println("----------> $partner")
-//    }
-//}

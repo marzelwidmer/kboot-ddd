@@ -1,6 +1,3 @@
-### Get Partner
-GET  http://localhost:8080/partners/1
-
 ### Create Partner
 POST http://localhost:8080/partners
 Content-Type: application/json
@@ -9,3 +6,5 @@ Content-Type: application/json
   "name": "foo"
 }
 
+### Get Partner - Add the ID from Create Partner from ServerLog
+GET  http://localhost:8080/partners/2c6fb819-8085-4ab3-9c99-a256707c6a9e

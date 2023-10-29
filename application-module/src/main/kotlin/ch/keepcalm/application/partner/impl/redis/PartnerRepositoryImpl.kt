@@ -19,8 +19,8 @@ class PartnerRepositoryRedisImpl(
     private val partnerRedisRepository: PartnerRedisRepository
 ) : PartnerRepository {
 
-    override fun findById(id: Long): Partner? {
-        return partnerRedisRepository.findById(id.toString()).map { partnerDto ->
+    override fun findById(id: String): Partner? {
+        return partnerRedisRepository.findById(id).map { partnerDto ->
             Partner(id = PartnerId(value = partnerDto.id), name = PartnerName(partnerDto.name))
         }.orElse(null)
     }

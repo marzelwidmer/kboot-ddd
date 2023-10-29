@@ -14,11 +14,13 @@ class PartnerService(
 
     fun createPartner(name: String) {
         val partnerName = PartnerName(name)
-        val partner = Partner(id = PartnerId(value = UUID.randomUUID().toString()), name = partnerName)
+        val partnerId = PartnerId(value = UUID.randomUUID().toString())
+        println(partnerId.value)
+        val partner = Partner(id = partnerId, name = partnerName)
         partnerRepository.save(partner)
     }
 
-    fun getPartnerById(id: Long): Partner? {
+    fun getPartnerById(id: String): Partner? {
         return partnerRepository.findById(id)
     }
 }
