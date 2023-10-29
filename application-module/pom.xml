@@ -32,6 +32,8 @@
 		<gitlog-maven-plugin.version>1.14.0</gitlog-maven-plugin.version>
 		<!--	Test	-->
 		<archunit.version>1.1.0</archunit.version>
+		<kotest.version>5.7.2</kotest.version>
+		<mockk.version>1.13.8</mockk.version>
 	</properties>
 
 	<dependencies>
@@ -94,6 +96,7 @@
 			<optional>true</optional>
 		</dependency>
 
+
 		<!--	Test 	-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -111,6 +114,21 @@
 			<groupId>com.tngtech.archunit</groupId>
 			<artifactId>archunit-junit5-engine</artifactId>
 			<version>${archunit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Kotest -->
+		<dependency>
+			<groupId>io.kotest</groupId>
+			<artifactId>kotest-runner-junit5-jvm</artifactId>
+			<version>${kotest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- MockK -->
+		<dependency>
+			<groupId>io.mockk</groupId>
+			<artifactId>mockk-jvm</artifactId>
+			<version>${mockk.version}</version>
 			<scope>test</scope>
 		</dependency>
 
