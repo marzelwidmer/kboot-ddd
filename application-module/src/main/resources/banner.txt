@@ -1,0 +1,11 @@
+${AnsiColor.GREEN}
+${spring.application.title} ${application.version}
+,--.    ,-----.                 ,--.
+|  |,-. |  |) /_  ,---. ,---. ,-'  '-.
+|     / |  .-.  \| .-. | .-. |'-.  .-'
+|  \  \ |  '--' /' '-' ' '-' '  |  |
+`--'`--'`------'  `---' `---'   `--'
+
+ ${AnsiColor.BRIGHT_GREEN}:: ${spring.application.name}:${application.formatted-version} :: Running Spring Boot:${spring-boot.formatted-version} :: Active Profiles: ${spring.profiles.active:${spring.profiles.default:default}} ::
+
+

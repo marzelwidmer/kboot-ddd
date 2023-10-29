@@ -4,7 +4,8 @@ spring:
       verifier:
         enabled: false
   application:
-    name: kboot-ddd-demo
+    title: "DDD :: Sample Project :: Onion Architecture"
+    name: "kboot-ddd-demo"
   data:
     redis:
       host: localhost
