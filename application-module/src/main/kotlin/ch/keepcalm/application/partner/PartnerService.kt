@@ -1,6 +1,7 @@
 package ch.keepcalm.application.partner
 
 import ch.keepcalm.ddd.partner.Partner
+import ch.keepcalm.ddd.partner.PartnerId
 import ch.keepcalm.ddd.partner.PartnerName
 import ch.keepcalm.domain.partner.PartnerRepository
 import org.springframework.stereotype.Service
@@ -13,7 +14,7 @@ class PartnerService(
 
     fun createPartner(name: String) {
         val partnerName = PartnerName(name)
-        val partner = Partner(id = UUID.randomUUID().toString(), name = partnerName)
+        val partner = Partner(id = PartnerId(value = UUID.randomUUID().toString()), name = partnerName)
         partnerRepository.save(partner)
     }
 

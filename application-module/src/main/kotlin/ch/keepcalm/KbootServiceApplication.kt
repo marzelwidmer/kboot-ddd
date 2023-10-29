@@ -1,6 +1,7 @@
 package ch.keepcalm
 
 import ch.keepcalm.ddd.partner.Partner
+import ch.keepcalm.ddd.partner.PartnerId
 import ch.keepcalm.ddd.partner.PartnerName
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -17,7 +18,7 @@ fun main(args: Array<String>) {
             beans {
                 bean {
                     ApplicationRunner { println("ApplicationRunner ----------------->") }
-                    val partner = Partner(id = UUID.randomUUID().toString(), PartnerName(value = "John"))
+                    val partner = Partner(id = PartnerId(value = UUID.randomUUID().toString()), PartnerName(value = "John"))
                     println(partner.name)
                 }
             }

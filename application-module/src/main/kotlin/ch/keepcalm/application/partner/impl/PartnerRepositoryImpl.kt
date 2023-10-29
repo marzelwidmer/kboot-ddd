@@ -1,6 +1,7 @@
 package ch.keepcalm.application.partner.impl
 
 import ch.keepcalm.ddd.partner.Partner
+import ch.keepcalm.ddd.partner.PartnerId
 import ch.keepcalm.ddd.partner.PartnerName
 import ch.keepcalm.domain.partner.PartnerRepository
 import ch.keepcalm.infrastructure.partner.PartnerDTO
@@ -27,12 +28,12 @@ class PartnerRepositoryRedisImpl(
 
     override fun findById(id: Long): Partner? {
         return partnerRedisRepository.findById(id.toString()).map { partnerDto ->
-            Partner(id = partnerDto.id, name = PartnerName(partnerDto.name))
+            Partner(id = PartnerId(value = partnerDto.id), name = PartnerName(partnerDto.name))
         }.orElse(null)
     }
 
     override fun save(partner: Partner) {
-        partnerRedisRepository.save(PartnerDTO(id = partner.id, name = partner.name.toString()))
+        partnerRedisRepository.save(PartnerDTO(id = partner.id.value, name = partner.name.toString()))
     }
 
 }
