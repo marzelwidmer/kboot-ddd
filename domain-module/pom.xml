@@ -24,6 +24,7 @@
 		<kotest.version>5.6.2</kotest.version>
 		<kluent.version>1.73</kluent.version>
 		<javafaker.version>1.0.2</javafaker.version>
+		<jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -130,6 +131,20 @@
 				</configuration>
 			</plugin>
 
+			<!-- JaCoCo plugin -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version> <!-- Replace with the latest version -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

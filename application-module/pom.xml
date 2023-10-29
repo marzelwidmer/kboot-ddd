@@ -34,6 +34,7 @@
 		<archunit.version>1.1.0</archunit.version>
 		<kotest.version>5.7.2</kotest.version>
 		<mockk.version>1.13.8</mockk.version>
+		<jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -216,6 +217,21 @@
 				<configuration>
 					<release>${java.version}</release>
 				</configuration>
+			</plugin>
+
+			<!-- JaCoCo plugin -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version> <!-- Replace with the latest version -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
