@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="api-request | Get Partner" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" nameIsGenerated="true" path="$PROJECT_DIR$/etc/rest-client/api-request.http" requestIdentifier="Get Partner" runType="Run single request" folderName="RestClient">
+    <method v="2" />
+  </configuration>
+</component>
