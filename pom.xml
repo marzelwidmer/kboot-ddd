@@ -16,5 +16,6 @@
 
 	<properties>
 		<revision>0.0.0</revision>
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 </project>
