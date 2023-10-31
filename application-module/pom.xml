@@ -49,6 +49,13 @@
 		</repository>
 	</repositories>
 
+	<distributionManagement>
+		<repository>
+			<id>c3sMavenFeed</id>
+			<url>https://pkgs.dev.azure.com/marzelwidmer/c3smonkey/_packaging/c3sMavenFeed/maven/v1</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>ch.keepcalm</groupId>
