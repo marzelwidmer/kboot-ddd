@@ -22,3 +22,10 @@ steps:
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'clean deploy -Drevision=0.0.0-SNAPSHOT
 
+  - task: UniversalPackages@0
+    inputs:
+      command: 'publish'
+      publishDirectory: '$(Build.ArtifactStagingDirectory)'
+      vstsFeedPublish: 'c3sMavenFeed'
+      vstsFeedPackagePublish: '$(PackageName)'
+
