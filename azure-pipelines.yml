@@ -20,12 +20,5 @@ steps:
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      goals: 'clean install -Drevision=1.0.0'
-
-  - task: UniversalPackages@0
-    inputs:
-      command: 'publish'
-      publishDirectory: '$(Build.ArtifactStagingDirectory)'
-      vstsFeedPublish: 'c3sMavenFeed'
-      vstsFeedPackagePublish: '$(PackageName)'
+      goals: 'clean deploy -Drevision=0.0.0-SNAPSHOT
 
