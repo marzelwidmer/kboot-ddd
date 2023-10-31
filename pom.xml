@@ -18,4 +18,17 @@
 		<revision>0.0.0</revision>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>c3sMavenFeed</id>
+			<url>https://pkgs.dev.azure.com/marzelwidmer/c3smonkey/_packaging/c3sMavenFeed/maven/v1</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 </project>
