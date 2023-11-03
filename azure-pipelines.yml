@@ -20,7 +20,7 @@ steps:
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      goals: 'clean deploy -Drevision=0.0.0-SNAPSHOT
+      goals: 'install'
 
   - task: UniversalPackages@0
     inputs:
