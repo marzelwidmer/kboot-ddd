@@ -1,6 +1,52 @@
 version: '3'
 services:
-  redis:
-    image: 'redis:latest'
+  spring-cloud-contract-stub-runner:
+    image: springcloud/spring-cloud-contract-stub-runner:4.0.4
+    environment:
+      - STUBRUNNER_IDS=ch.keepcalm.demo:kboot-puername:+:stubs:9876
+      - STUBRUNNER_REPOSITORY_ROOT=git://https://github.com/marzelwidmer/contracts.git
+      - STUBRUNNER_STUBS_MODE=REMOTE
+      - STUBRUNNER_GENERATE_STUBS=TRUE
     ports:
-      - '6379:6379'
+      - "8083:8083"
+      - "9876:9876"
+    restart: always
+
+#version: "3"
+#
+#services:
+##  mongodb:
+##    image: "mongo:latest"
+##    ports:
+##      - "27017:27017"
+##    volumes:
+##      - "mongodb_data_container:/data/db"
+##  redis:
+##    image: 'redis:latest'
+##    ports:
+##      - '6379:6379'
+##  minio:
+##    image: minio/minio
+##    command: server /data --console-address ":9001"
+##    ports:
+##      - "9005:9000"
+##      - "9006:9001"
+#
+#  stubrunner:
+#    image: springcloud/spring-cloud-contract-stub-runner:4.0.4
+##    image: springcloud/spring-cloud-contract-stub-runner:3.1.4
+#    environment:
+##      STUBRUNNER_IDS: ch.helsana.myhelsana.contracts.dsp:partner-integration:0.0.0.RELEASE:9999,ch.helsana.external.contracts.dsp:csp-id:0.0.0.RELEASE:9998
+#      STUBRUNNER_IDS: ch.keepcalm.demo:kboot-puername:+:stubs:9876
+#      STUBRUNNER_STUBS_MODE: REMOTE
+#      STUBRUNNER_GENERATE_STUBS: TRUE
+#      STUBRUNNER_REPOSITORY_ROOT: git://https://github.com/marzelwidmer/contracts.git
+##      STUBRUNNER_USERNAME: helsana
+##      STUBRUNNER_PASSWORD: ${AZURE_PAT}
+##      STUBRUNNER_PROPERTIES_GIT_ENSURE_GIT_SUFFIX: FALSE
+#      LANG: C.UTF-8
+#    ports:
+#      - "8083:8083"
+#      - "9876:9876"
+##volumes:
+##  mongodb_data_container:

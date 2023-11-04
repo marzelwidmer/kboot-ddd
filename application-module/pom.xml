@@ -22,19 +22,50 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<graphvizdot>/usr/local/bin/dot</graphvizdot>
+		<AZURE_PAT>${env.AZURE_PAT}</AZURE_PAT>
 
 		<revision>0.0.0</revision>
 		<java.version>17</java.version>
 
-		<kotlin.version>1.9.10</kotlin.version>
+		<kotlin.version>1.9.20</kotlin.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
+		<spring-cloud-contract-plugin.version>4.0.4</spring-cloud-contract-plugin.version>
 		<kotlin-logging.version>5.1.0</kotlin-logging.version>
+		<gitlog-maven-plugin.version>1.14.0</gitlog-maven-plugin.version>
+
+		<!-- =================  JIB ================= -->
+		<contract-git-branch>master</contract-git-branch>
+		<jib.maven-plugin.version>3.3.2</jib.maven-plugin.version>
+		<jib.from.image>registry.redhat.io/ubi8/openjdk-17-runtime:1.17-1.1693366274</jib.from.image>
+
+		<!-- =================  FSL libraries ================= -->
+		<fsl-security.version>2.0.3</fsl-security.version>
+		<fsl-logging.version>1.2.1</fsl-logging.version>
+
+		<!-- Asciidoc -->
+		<asciidoctor.maven.plugin.version>2.1.0</asciidoctor.maven.plugin.version>
+		<asciidoctorj-diagram.version>2.2.13</asciidoctorj-diagram.version>
+		<asciidoctorj.version>2.4.3</asciidoctorj.version>
+		<asciidoctorj-pdf.version>2.3.9</asciidoctorj-pdf.version>
+		<spring-restdocs-asciidoctor.version>3.0.0</spring-restdocs-asciidoctor.version>
+		<asciidoctor-maven-plugin.sourceDirectory>src/asciidoc/docs/</asciidoctor-maven-plugin.sourceDirectory>
+		<asciidoctor-maven-plugin.baseDir>src/asciidoc/resources</asciidoctor-maven-plugin.baseDir>
+		<asciidoctor-maven-plugin.snippetsDirectory>${project.build.directory}/generated-snippets</asciidoctor-maven-plugin.snippetsDirectory>
+		<asciidoctor-maven-plugin.outputDirectory>${project.build.directory}/classes/static/api-docs</asciidoctor-maven-plugin.outputDirectory>
+
 		<!--	Test	-->
 		<archunit.version>1.1.0</archunit.version>
 		<kotest.version>5.7.2</kotest.version>
+		<kotest-spring.version>1.1.3</kotest-spring.version>
+		<kluent.version>1.73</kluent.version>
 		<mockk.version>1.13.8</mockk.version>
 		<jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+		<springmockk.version>4.0.2</springmockk.version>
+		<spring-cloud-contract-maven-plugin.version>4.0.4</spring-cloud-contract-maven-plugin.version>
 	</properties>
+
+	<!-- =================  Azure feed ================= -->
 
 	<repositories>
 		<repository>
@@ -56,31 +87,85 @@
 		</repository>
 	</distributionManagement>
 
+	<!-- =================  Dependency Management ================= -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- =================  Dependencies ================= -->
 	<dependencies>
+
+		<!-- =================  Domain ================= -->
 		<dependency>
 			<groupId>ch.keepcalm</groupId>
 			<artifactId>domain-module</artifactId>
-			<version>${project.version}</version>
+			<version>${revision}</version>
 		</dependency>
+		<!-- =================  Domain ================= -->
 
+		<!--Spring Boot -->
 		<dependency>
-			<groupId>io.github.oshai</groupId>
-			<artifactId>kotlin-logging-jvm</artifactId>
-			<version>${kotlin-logging.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-kubernetes-fabric8-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-brave</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Jackson Kotlin	-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-kotlin</artifactId>
 		</dependency>
+		<!-- Kotlin -->
 		<dependency>
 			<groupId>io.projectreactor.kotlin</groupId>
 			<artifactId>reactor-kotlin-extensions</artifactId>
@@ -97,6 +182,12 @@
 			<groupId>org.jetbrains.kotlinx</groupId>
 			<artifactId>kotlinx-coroutines-reactor</artifactId>
 		</dependency>
+		<!-- Logger -->
+		<dependency>
+			<groupId>io.github.oshai</groupId>
+			<artifactId>kotlin-logging-jvm</artifactId>
+			<version>${kotlin-logging.version}</version>
+		</dependency>
 
 
 		<!--	Redis	-->
@@ -109,18 +200,36 @@
 			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
 		</dependency>
 
+
+		<!-- =================  TEST ================= -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
-
-
-		<!--	Test 	-->
+		<!-- Reactor  -->
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Spring TestContainers -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Kluent -->
+		<dependency>
+			<groupId>org.amshove.kluent</groupId>
+			<artifactId>kluent</artifactId>
+			<version>${kluent.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- ArchUnit -->
@@ -136,12 +245,23 @@
 			<version>${archunit.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- Kotest -->
 		<dependency>
 			<groupId>io.kotest</groupId>
-			<artifactId>kotest-runner-junit5-jvm</artifactId>
+			<artifactId>kotest-assertions-core-jvm</artifactId>
 			<version>${kotest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.kotest</groupId>
+			<artifactId>kotest-property-jvm</artifactId>
+			<version>${kotest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.kotest.extensions</groupId>
+			<artifactId>kotest-extensions-spring</artifactId>
+			<version>${kotest-spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- MockK -->
@@ -151,67 +271,114 @@
 			<version>${mockk.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- Spring Mockk -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<groupId>com.ninja-squad</groupId>
+			<artifactId>springmockk</artifactId>
+			<version>${springmockk.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Contract -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-test</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-shade</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-spec</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Remember to add this for the DSL support in the IDE and on the consumer side -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-spec-kotlin</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-converters</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--	WebTestClient	-->
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>spring-web-test-client</artifactId>
+			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- 	<groupId>org.springframework.cloud</groupId> -->
-		<!-- 	<artifactId>spring-cloud-starter-contract-stub-runner</artifactId> -->
-		<!-- 	<scope>test</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- 	<groupId>org.springframework.cloud</groupId> -->
-		<!-- 	<artifactId>spring-cloud-starter-contract-verifier</artifactId> -->
-		<!-- 	<scope>test</scope> -->
-		<!-- </dependency> -->
+		<!--	RestDocs WebTestClient	-->
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-webtestclient</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
+	<!-- =================  Build ================= -->
 	<build>
 		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 		<plugins>
-			<!--<plugin>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
-				<version>4.0.4</version>
-				<extensions>true</extensions>
-				<configuration>
-					<testFramework>JUNIT5</testFramework>
-					<testMode>WEBTESTCLIENT</testMode>
-				</configuration>
-			</plugin>-->
+
+			<!--	Spring Boot Maven		-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
+
+			<!-- Kotlin -->
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<artifactId>kotlin-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>test-compile</id>
+						<goals>
+							<goal>test-compile</goal>
+						</goals>
+						<configuration>
+							<sourceDirs>
+								<sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+							</sourceDirs>
+						</configuration>
+					</execution>
+					<execution>
+						<id>test-compile-contracts</id>
+						<goals>
+							<goal>test-compile</goal>
+						</goals>
+						<configuration>
+							<sourceDirs>
+								<sourceDir>${project.basedir}/src/contracts-test/kotlin</sourceDir>
+							</sourceDirs>
+						</configuration>
+					</execution>
+				</executions>
 				<configuration>
 					<args>
 						<arg>-Xjsr305=strict</arg>
@@ -228,31 +395,238 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-
+			<!--	Maven Compiler		-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<release>${java.version}</release>
 				</configuration>
+				<executions>
+					<!-- Replacing default-compile as it is treated specially by maven -->
+					<execution>
+						<id>default-compile</id>
+						<phase>none</phase>
+					</execution>
+					<!-- Replacing default-testCompile as it is treated specially by maven -->
+					<execution>
+						<id>default-testCompile</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>java-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>java-test-compile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
-			<!-- JaCoCo plugin -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco-maven-plugin.version}</version> <!-- Replace with the latest version -->
+				<version>${jacoco-maven-plugin.version}</version>
 				<executions>
 					<execution>
 						<goals>
 							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
 							<goal>report</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- AsciiDoc -->
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<version>${asciidoctor.maven.plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoctorj-pdf</artifactId>
+						<version>${asciidoctorj-pdf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoctorj-diagram</artifactId>
+						<version>${asciidoctorj-diagram.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.restdocs</groupId>
+						<artifactId>spring-restdocs-asciidoctor</artifactId>
+						<version>${spring-restdocs-asciidoctor.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<doctype>book</doctype>
+					<sourceDirectory>${asciidoctor-maven-plugin.sourceDirectory}</sourceDirectory>
+					<outputDirectory>${asciidoctor-maven-plugin.outputDirectory}</outputDirectory>
+					<baseDir>${asciidoctor-maven-plugin.baseDir}</baseDir>
+					<requires>
+						<require>asciidoctor-diagram</require>
+					</requires>
+					<attributes>
+						<project-name>${project.name}</project-name>
+						<linkcss>true</linkcss>
+						<project-version>${project.version}</project-version>
+						<project-artifact-name>${project.name}-${project.version}</project-artifact-name>
+						<graphvizdot>${graphvizdot}</graphvizdot>
+					</attributes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>convert-to-html</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+						<configuration>
+							<backend>html5</backend>
+						</configuration>
+					</execution>
+					<execution>
+						<id>convert-to-pdf</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+						<configuration>
+							<backend>pdf</backend>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Contracts -->
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>${spring-cloud-contract-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<testFramework>JUNIT5</testFramework>
+					<failOnInProgress>false</failOnInProgress>
+					<packageWithBaseClasses>ch.myhelsana.medikamente.base</packageWithBaseClasses>
+					<baseClassForTests>ch.myhelsana.medikamente.base.DummyBase</baseClassForTests>
+					<contractsMode>REMOTE</contractsMode>
+					<contractsRepositoryUrl>git://https://dev.azure.com/helsana/MYHELSANA/_git/contracts</contractsRepositoryUrl>
+					<contractsRepositoryUsername>helsana</contractsRepositoryUsername>
+					<contractsRepositoryPassword>${AZURE_PAT}</contractsRepositoryPassword>
+					<contractsPath>current</contractsPath> <!-- don't generate tests for legacy contracts -->
+					<contractsProperties>
+						<git.ensure-git-suffix>false</git.ensure-git-suffix>
+					</contractsProperties>
+					<contractDependency>
+						<groupId>ch.helsana.myhelsana.contracts.fsl</groupId>
+						<artifactId>medikamente-service</artifactId>
+						<version>0.0.0.RELEASE</version>
+					</contractDependency>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generateTests</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Add generated and test sources -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build-helper-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>add-contract-sources</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-test-sources/contracts/</source>
+							</sources>
+						</configuration>
+					</execution>
+					<!-- Add a new resource directories to our build -->
+					<execution>
+						<id>add-contracts-test-resources</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>add-test-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<filtering>true</filtering>
+									<directory>src/contracts-test/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
 
+
+	<!-- =================  Profiles ================= -->
+	<profiles>
+		<profile>
+			<id>standalone</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-docker-compose</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<!-- =================  Jib ================= -->
+		<profile>
+			<id>jib</id>
+			<build>
+				<plugins>
+					<!-- Jib -->
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<version>${jib.maven-plugin.version}</version>
+						<configuration>
+							<from>
+								<image>${jib.from.image}</image>
+							</from>
+							<container>
+								<!-- allows us to mount a directory containing the config file in /config -->
+								<workingDirectory>/</workingDirectory>
+							</container>
+							<allowInsecureRegistries>true</allowInsecureRegistries>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>dockerBuild</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

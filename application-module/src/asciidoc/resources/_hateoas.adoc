@@ -1,0 +1,21 @@
+:revnumber: {project-version}
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../../main/kotlin]
+ifndef::testdir[:testdir: ../../test/kotlin]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+[[hypermedia]]
+[[HATEOAS]]
+= Hypermedia
+
+_{project-name}_ uses hypermedia and resources include links to other resources in their responses.
+
+Responses are in https://github.com/mikekelly/hal_specification[Hypertext
+Application Language (HAL)] format.
+
+Links can be found beneath the `_links` key.
+Users of the API should not create URIs themselves, instead they should use the above-described links to navigate from resource to resource.
+
+With providing any `Link` or not is it possible to drive the state of the application.
+
+NOTE: Each Resource Object SHOULD contain a _self_ link that corresponds with the IANA registered 'self' relation (as defined by [RFC5988]) whose target is the resource's URI.

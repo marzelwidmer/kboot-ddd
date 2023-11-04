@@ -1,0 +1,77 @@
+:revnumber: {project-version}
+ifndef::imagesdir[:imagesdir: ../docs/images]
+ifndef::sourcedir[:sourcedir: ../../main/kotlin]
+ifndef::testdir[:testdir: ../../test/kotlin]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+= Project Structure
+
+- `application-module`: This module contains the application code for your project.
+
+- `application`: This package holds application-level code, including controllers and service classes.
+- `PartnerController.kt`: Manages the web endpoints for partner-related operations.
+- `PartnerService.kt`: Implements business logic and orchestrates interactions with the domain and infrastructure layers.
+
+- `domain`: This package represents the domain layer and contains domain model definitions.
+- `PartnerRepository.kt`: Defines the interface for repository operations related to partners.
+
+- `infrastructure`: In this package, you manage infrastructure-related code.
+- `logging`: Contains classes related to logging requests and responses.
+- `RequestResponseLogger.kt`: Logs request and response information.
+- `logger.kt`: Global logger functions.
+- `partner`: Manages data related to the "partner" domain.
+- `inMemory`: This sub-package contains an in-memory implementation of the partner repository.
+- `PartnerRepositoryInMemoryImpl.kt`: Implements the PartnerRepository interface for in-memory data storage.
+- `redis`: This sub-package is for Redis-specific components.
+- `PartnerRepositoryRedisImpl.kt`: Implements the PartnerRepository interface for Redis data storage.
+- `PartnerDTO.kt`: Represents a data transfer object for partners when using Redis.
+- `PartnerRedisRepository.kt`: Manages interactions with Redis for partner data.
+
+
+
+
+
+
+```bash
+.
+└── src
+    └── main
+        └── kotlin
+            └── ch.keepcalm
+                └── application (Application layer)
+                │   └── partner
+                │       └── PartnerService.kt (Service for partner-related operations)
+                │       └── PartnerController.kt (Controller for partner-related API)
+                │
+                └── domain (Domain layer)
+                │   └── partner
+                │       ├── Partner.kt (Domain entity representing a partner)
+                │       └── PartnerRepository.kt (Repository interface for partner entities)
+                │
+                └── infrastructure (Infrastructure layer)
+                │   └── partner
+                │       └── redis (Redis-specific components)
+                │       │   ├── PartnerRedisRepository.kt (Redis Repository interface for partner data)
+                │       │   └── PartnerRedisRepositoryImpl.kt (Implements the Redis repository for partner data)
+                │       │
+                │       └── mongodb (MongoDB-specific components)
+                │           ├── PartnerMongoRepository.kt (Implements the MongoDB repository for partner data)
+                │           └── MongoConfig.kt (MongoDB configuration)
+                │
+                └── Application.kt (Main application entry point)
+
+```
+In this structure:
+
+* *application/partner*: This directory contains the application layer for the "partner" domain.
+The PartnerService.kt file likely contains service classes and business logic related to the "partner" domain.
+
+* *domain/partner*: This directory represents the domain layer for the "partner" domain.
+The Partner.kt file typically contains the domain model class representing a partner,
+and the PartnerRepository.kt file may define the interface for the repository responsible for storing and retrieving partner-related data.
+
+* *infrastructure*:
+- The "mongo" folder contains MongoDB-specific components.
+- The "redis" folder contains Redis-specific components.
+
+

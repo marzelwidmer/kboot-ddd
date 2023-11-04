@@ -1,0 +1,22 @@
+:toc: left
+:toclevels: 3
+:doctype: book
+:sectanchors:
+:copyright: ©
+:dot: .
+:ellipsis: …
+:hatch: #
+:pilcrow: ¶
+:star: *
+:tilde: ~
+:ul: _
+:revnumber: {project-version}
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../../main/kotlin]
+ifndef::testdir[:testdir: ../../test/kotlin]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+include::{resourcesdir}/_architecture.adoc[leveloffset=2]
+include::{resourcesdir}/_hateoas.adoc[leveloffset=0]
+include::{resourcesdir}/_user_guide.adoc[leveloffset=2]
+include::{resourcesdir}/_project_structure.adoc[leveloffset=2]

@@ -1,0 +1,36 @@
+@startuml context map
+
+title **Context Map**
+footer Context Map
+scale max 1024 width
+
+skinparam nodesep 10
+skinparam ranksep 15
+
+' Define the different bounded contexts
+package "Bounded Context 1" as BC1 {
+  [Aggregate Root 1]
+  [Aggregate Root 2]
+}
+
+package "Bounded Context 2" as BC2 {
+  [Aggregate Root 3]
+  [Aggregate Root 4]
+}
+
+' Define the different DDD patterns
+[Anti-Corruption Layer (ACL)] as ACL
+[Open Host Service (OHS)] as OHS
+[Published Language (PL)] as PL
+[Shared Kernel (SK)] as SK
+[Conformist (CF)] as CF
+
+' Define the relationships between the bounded contexts and the DDD patterns
+BC1 --> ACL : Uses
+BC1 --> OHS : Uses
+BC2 --> PL : Uses
+BC2 --> SK : Uses
+BC1 --> CF : Uses
+BC2 --> CF : Uses
+
+@enduml

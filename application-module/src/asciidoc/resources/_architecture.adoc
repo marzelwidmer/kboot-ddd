@@ -1,0 +1,6 @@
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+plantuml::{resourcesdir}/diagram/context_map.puml[png]
+
+
+

@@ -1,10 +1,7 @@
-
 :revnumber: {project-version}
 ifndef::imagesdir[:imagesdir: images]
-ifndef::sourcedir[:sourcedir: ../../main/kotlin]
-ifndef::testdir[:testdir: ../../test/kotlin]
-ifndef::gitlogdir[:gitlogdir: ../../../target/generated-gitlog]
-ifndef::resourcesdir[:resourcesdir: ../resources]
+ifndef::sourcedir[:sourcedir: ../../application-module/main/kotlin]
+ifndef::testdir[:testdir: ../../application-module/test/kotlin]
 
 Content entered directly below the header but before the first section heading is called the preamble.
 

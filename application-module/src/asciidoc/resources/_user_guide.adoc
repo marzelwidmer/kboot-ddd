@@ -1,0 +1,16 @@
+:revnumber: {project-version}
+ifndef::imagesdir[:imagesdir: ../docs/images]
+ifndef::sourcedir[:sourcedir: ../../main/kotlin]
+ifndef::testdir[:testdir: ../../test/kotlin]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+= User Guide
+
+.inMemory version
+----
+SPRING_PROFILES_ACTIVE=inMemory mvn clean spring-boot:run -pl application-module
+----
+.Redis version
+----
+SPRING_PROFILES_ACTIVE=redis mvn clean spring-boot:run -pl application-module
+----
