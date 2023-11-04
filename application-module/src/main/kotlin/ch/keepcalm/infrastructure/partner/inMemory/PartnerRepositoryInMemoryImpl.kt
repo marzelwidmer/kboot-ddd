@@ -17,4 +17,8 @@ class PartnerRepositoryInMemoryImpl : PartnerRepository {
     override fun save(partner: Partner) {
         inMemoryStorage[partner.id.value] = partner
     }
+
+    override fun findAll(): List<Partner>? {
+        return inMemoryStorage.values.toList()
+    }
 }

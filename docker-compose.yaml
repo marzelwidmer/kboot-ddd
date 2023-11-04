@@ -1,17 +1,20 @@
 version: '3'
 services:
-  spring-cloud-contract-stub-runner:
-    image: springcloud/spring-cloud-contract-stub-runner:4.0.4
-    environment:
-      - STUBRUNNER_IDS=ch.keepcalm.demo:kboot-puername:+:stubs:9876
-      - STUBRUNNER_REPOSITORY_ROOT=git://https://github.com/marzelwidmer/contracts.git
-      - STUBRUNNER_STUBS_MODE=REMOTE
-      - STUBRUNNER_GENERATE_STUBS=TRUE
+#  spring-cloud-contract-stub-runner:
+#    image: springcloud/spring-cloud-contract-stub-runner:4.0.4
+#    environment:
+#      - STUBRUNNER_IDS=ch.keepcalm.demo:kboot-puername:+:stubs:9876
+#      - STUBRUNNER_REPOSITORY_ROOT=git://https://github.com/marzelwidmer/contracts.git
+#      - STUBRUNNER_STUBS_MODE=REMOTE
+#      - STUBRUNNER_GENERATE_STUBS=TRUE
+#    ports:
+#      - "8083:8083"
+#      - "9876:9876"
+#    restart: always
+  redis:
+    image: 'redis:latest'
     ports:
-      - "8083:8083"
-      - "9876:9876"
-    restart: always
-
+      - '6379:6379'
 #version: "3"
 #
 #services:

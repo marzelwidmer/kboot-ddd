@@ -16,4 +16,9 @@ class PartnerController(private val partnerService: PartnerService) {
     fun getPartner(@PathVariable id: String): Partner? {
         return partnerService.getPartnerById(id)
     }
+
+    @GetMapping("")
+    fun getPartners(): List<Partner>? {
+        return partnerService.getAllPartner()
+    }
 }

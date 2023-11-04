@@ -11,5 +11,5 @@ GET  http://localhost:8080/partners/d575cf42-97fd-4a36-8d64-4058b3aeca48
 
 
 ### Call Stubs
-GET http://localhost:9876/api/persons
+GET http://localhost:9876/partners
 Content-Type: application/json

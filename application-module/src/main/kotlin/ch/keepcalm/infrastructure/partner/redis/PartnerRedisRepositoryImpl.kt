@@ -26,4 +26,8 @@ class PartnerRepositoryRedisImpl(
         partnerRedisRepository.save(PartnerDTO(id = partner.id.value, name = partner.name.toString()))
     }
 
+    override fun findAll(): List<Partner>? {
+        TODO("Not yet implemented")
+    }
+
 }

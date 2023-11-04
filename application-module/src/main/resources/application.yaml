@@ -6,6 +6,16 @@ spring:
   application:
     title: "DDD :: Sample Project :: Onion Architecture"
     name: "kboot-ddd-demo"
+
   data:
     redis:
       host: localhost
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+

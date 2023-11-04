@@ -8,12 +8,18 @@ import ch.keepcalm.infrastructure.logging.logger
 import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
-class PartnerService(
-    private val partnerRepository: PartnerRepository
-) {
+interface PartnerService {
+    fun createPartner(name: String)
+    fun getPartnerById(id: String): Partner?
+    fun getAllPartner(): List<Partner>?
+}
 
-    fun createPartner(name: String) {
+@Service
+class PartnerServiceImpl(
+    private val partnerRepository: PartnerRepository
+) : PartnerService{
+
+    override fun createPartner(name: String) {
         val partnerName = PartnerName(name)
         val partnerId = PartnerId(value = UUID.randomUUID().toString())
 
@@ -25,7 +31,12 @@ class PartnerService(
         partnerRepository.save(partner)
     }
 
-    fun getPartnerById(id: String): Partner? {
+    override  fun getPartnerById(id: String): Partner? {
         return partnerRepository.findById(id)
     }
+
+    override fun getAllPartner(): List<Partner>? {
+       return partnerRepository.findAll()
+    }
 }
+

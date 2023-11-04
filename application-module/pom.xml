@@ -35,7 +35,6 @@
 		<gitlog-maven-plugin.version>1.14.0</gitlog-maven-plugin.version>
 
 		<!-- =================  JIB ================= -->
-		<contract-git-branch>master</contract-git-branch>
 		<jib.maven-plugin.version>3.3.2</jib.maven-plugin.version>
 		<jib.from.image>registry.redhat.io/ubi8/openjdk-17-runtime:1.17-1.1693366274</jib.from.image>
 
@@ -379,7 +378,9 @@
 						</configuration>
 					</execution>
 				</executions>
+
 				<configuration>
+					<jvmTarget>${java.version}</jvmTarget>
 					<args>
 						<arg>-Xjsr305=strict</arg>
 					</args>
@@ -519,32 +520,26 @@
 				<version>${spring-cloud-contract-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<testFramework>JUNIT5</testFramework>
+					<packageWithBaseClasses>ch.keepcalm.base</packageWithBaseClasses>
 					<failOnInProgress>false</failOnInProgress>
-					<packageWithBaseClasses>ch.myhelsana.medikamente.base</packageWithBaseClasses>
-					<baseClassForTests>ch.myhelsana.medikamente.base.DummyBase</baseClassForTests>
-					<contractsMode>REMOTE</contractsMode>
-					<contractsRepositoryUrl>git://https://dev.azure.com/helsana/MYHELSANA/_git/contracts</contractsRepositoryUrl>
-					<contractsRepositoryUsername>helsana</contractsRepositoryUsername>
-					<contractsRepositoryPassword>${AZURE_PAT}</contractsRepositoryPassword>
-					<contractsPath>current</contractsPath> <!-- don't generate tests for legacy contracts -->
-					<contractsProperties>
-						<git.ensure-git-suffix>false</git.ensure-git-suffix>
-					</contractsProperties>
+					<testMode>WEBTESTCLIENT</testMode>
+					<contractsRepositoryUrl>git://https://github.com/marzelwidmer/contracts.git</contractsRepositoryUrl>
+					<!-- We reuse the contract dependency section to set up the path
+					to the folder that contains the contract definitions. In our case the
+					path will be /groupId/artifactId/version/contracts -->
 					<contractDependency>
-						<groupId>ch.helsana.myhelsana.contracts.fsl</groupId>
-						<artifactId>medikamente-service</artifactId>
-						<version>0.0.0.RELEASE</version>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>${project.artifactId}</artifactId>
+						<version>${project.version}</version>
 					</contractDependency>
+					<contractsProperties>
+						<git.branch>master</git.branch>
+					</contractsProperties>
+					<!-- The contracts mode can't be classpath -->
+					<contractsMode>REMOTE</contractsMode>
 				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generateTests</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
+
 			<!-- Add generated and test sources -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
