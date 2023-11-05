@@ -15,4 +15,3 @@ ifndef::resourcesdir[:resourcesdir: application-module/src/asciidoc/resources]
 
 include::{resourcesdir}/_user_guide.adoc[leveloffset=2]
 include::{resourcesdir}/_project_structure.adoc[leveloffset=2]
-

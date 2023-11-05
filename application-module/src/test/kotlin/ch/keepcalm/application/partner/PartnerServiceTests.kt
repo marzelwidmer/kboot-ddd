@@ -4,18 +4,22 @@ import ch.keepcalm.ddd.partner.Partner
 import ch.keepcalm.ddd.partner.PartnerId
 import ch.keepcalm.ddd.partner.PartnerName
 import ch.keepcalm.domain.partner.PartnerRepository
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.shouldBe
 import io.mockk.every
+import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
 import io.mockk.verify
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import kotlin.test.assertEquals
 
-class PartnerServiceTest : StringSpec({
+@ExtendWith(MockKExtension::class)
+class PartnerServiceTest {
 
-    val mockPartnerRepository = mockk<PartnerRepository>()
-    val partnerService = PartnerServiceImpl(mockPartnerRepository)
+    private val mockPartnerRepository = mockk<PartnerRepository>()
+    private val partnerService = PartnerServiceImpl(mockPartnerRepository)
 
-    "createPartner should save a partner" {
+    @Test
+    fun `createPartner should save a partner`() {
         val name = "Test Partner"
 
         every { mockPartnerRepository.save(any()) } returns Unit
@@ -26,7 +30,8 @@ class PartnerServiceTest : StringSpec({
         verify { mockPartnerRepository.save(any()) }
     }
 
-    "getPartnerById should return a partner" {
+    @Test
+    fun `getPartnerById should return a partner`() {
         val id = "test-id"
         val expectedPartner = Partner(PartnerId(id), PartnerName("Test"))
 
@@ -34,9 +39,27 @@ class PartnerServiceTest : StringSpec({
 
         val result = partnerService.getPartnerById(id)
 
-        result shouldBe expectedPartner
+        assertEquals(expectedPartner, result)
 
         // Verify that findById was called on mockPartnerRepository with the correct id
         verify { mockPartnerRepository.findById(id) }
     }
-})
+
+    @Test
+    fun `getAllPartner should return all partners`() {
+        val expectedPartners = listOf(
+            Partner(PartnerId("id1"), PartnerName("Test1")),
+            Partner(PartnerId("id2"), PartnerName("Test2"))
+        )
+
+        every { mockPartnerRepository.findAll() } returns expectedPartners
+
+        val result = partnerService.getAllPartner()
+
+        assertEquals(expectedPartners, result)
+
+        // Verify that findAll was called on mockPartnerRepository
+        verify { mockPartnerRepository.findAll() }
+    }
+}
+

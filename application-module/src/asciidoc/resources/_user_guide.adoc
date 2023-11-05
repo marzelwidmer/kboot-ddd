@@ -14,3 +14,27 @@ SPRING_PROFILES_ACTIVE=inMemory mvn clean spring-boot:run -pl application-module
 ----
 SPRING_PROFILES_ACTIVE=redis mvn clean spring-boot:run -pl application-module
 ----
+
+
+```bash
+docker run --rm \
+-e "STUBRUNNER_IDS=ch.keepcalm:application-module:+:stubs:8081" \
+-e "STUBRUNNER_REPOSITORY_ROOT=git://https://github.com/marzelwidmer/contracts.git" \
+-e "STUBRUNNER_STUBS_MODE=REMOTE" \
+-e "STUBRUNNER_GENERATE_STUBS=TRUE" \
+-p "8083:8083" \
+-p "8081:8081" \
+  springcloud/spring-cloud-contract-stub-runner:4.0.4
+```
+
+```
+docker run --rm \
+-e "STUBRUNNER_IDS=ch.keepcalm.demo:kboot-puername:+:stubs:8081,ch.keepcalm.demo:kboot-puername:+:stubs,ch.keepcalm.demo:xml:+:stubs" \
+-e "STUBRUNNER_STUBS_MODE=REMOTE" \
+-e "STUBRUNNER_GENERATE_STUBS=TRUE" \
+-e "STUBRUNNER_REPOSITORY_ROOT=git://https://github.com/marzelwidmer/contracts.git" \
+-e "LANG=C.UTF-8" \
+-p "8083:8083" \
+-p "8081:8081" \
+springcloud/spring-cloud-contract-stub-runner:4.0.4
+```
