@@ -480,8 +480,8 @@
 					to the folder that contains the contract definitions. In our case the
 					path will be /groupId/artifactId/version/contracts -->
 					<contractDependency>
-						<groupId>ch.keepcalm</groupId>
-						<artifactId>kboot-ddd</artifactId>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>${project.artifactId}</artifactId>
 						<version>${project.version}</version>
 					</contractDependency>
 					<contractsProperties>
