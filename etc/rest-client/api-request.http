@@ -3,7 +3,7 @@ POST http://localhost:8080/partners
 Content-Type: application/json
 
 {
-  "name": "foo"
+  "name": "John"
 }
 
 ### Get Partner - Add the ID from Create Partner from ServerLog

@@ -5,7 +5,7 @@ import ch.keepcalm.domain.partner.PartnerRepository
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository
 
-@Profile("inMemory")
+//@Profile("inMemory")
 @Repository
 class PartnerRepositoryInMemoryImpl : PartnerRepository {
     private val inMemoryStorage = mutableMapOf<String, Partner>()
