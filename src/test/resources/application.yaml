@@ -1,0 +1,6 @@
+
+logging:
+  level:
+    org.apache.http.wire: DEBUG
+    org.springframework.cloud.contract.stubrunner: DEBUG
+

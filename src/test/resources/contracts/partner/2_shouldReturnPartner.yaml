@@ -1,0 +1,16 @@
+description: |
+  Should return info about other endpoints to query, 2_shouldReturnPartner
+request:
+  method: GET
+  url: /partners
+response:
+  status: 200
+  headers:
+    Content-Type: application/json
+  body: '{
+    "name" : "John"
+  }'
+  matchers:
+    headers:
+      - key: Content-Type
+        regex: application/json.*

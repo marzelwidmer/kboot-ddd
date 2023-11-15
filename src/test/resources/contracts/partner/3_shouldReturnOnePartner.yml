@@ -1,0 +1,15 @@
+description: |
+  Should return info about a specific partner, 3_shouldReturnOnePartner
+request:
+  method: GET
+  url: /partners/1
+response:
+  status: 200
+  headers:
+    Content-Type: application/json
+  body:
+    name: "John"
+  matchers:
+    headers:
+      - key: Content-Type
+        regex: application/json.*

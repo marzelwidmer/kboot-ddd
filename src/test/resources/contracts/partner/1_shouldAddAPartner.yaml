@@ -1,0 +1,13 @@
+description: |
+  Should add a partner, 1_shouldAddAPartner
+request:
+  method: POST
+  url: /partners
+  headers:
+    Content-Type: application/json
+  body: '{
+    "name" : "John"
+  }'
+response:
+  status: 200
+
