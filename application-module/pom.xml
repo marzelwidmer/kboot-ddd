@@ -46,6 +46,8 @@
 
 		<!--	Test	-->
 		<archunit.version>1.1.0</archunit.version>
+		<kotest.version>5.7.2</kotest.version>
+		<kotest-spring.version>1.1.3</kotest-spring.version>
 		<kluent.version>1.73</kluent.version>
 		<mockk.version>1.13.8</mockk.version>
 		<jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
@@ -234,7 +236,25 @@
 			<scope>test</scope>
 		</dependency>
 
-
+		<!-- Kotest -->
+		<dependency>
+			<groupId>io.kotest</groupId>
+			<artifactId>kotest-assertions-core-jvm</artifactId>
+			<version>${kotest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.kotest</groupId>
+			<artifactId>kotest-property-jvm</artifactId>
+			<version>${kotest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.kotest.extensions</groupId>
+			<artifactId>kotest-extensions-spring</artifactId>
+			<version>${kotest-spring.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- MockK -->
 		<dependency>
 			<groupId>io.mockk</groupId>
@@ -475,21 +495,28 @@
 					<packageWithBaseClasses>ch.keepcalm.base</packageWithBaseClasses>
 					<failOnInProgress>false</failOnInProgress>
 					<testMode>WEBTESTCLIENT</testMode>
+					<contractsDirectory>${project.basedir}/src/contracts-test/contracts</contractsDirectory>
+				<!--
 					<contractsRepositoryUrl>git://https://github.com/marzelwidmer/contracts.git</contractsRepositoryUrl>
-					<!-- We reuse the contract dependency section to set up the path
-					to the folder that contains the contract definitions. In our case the
-					path will be /groupId/artifactId/version/contracts -->
+					<contractsMode>REMOTE</contractsMode>
+					<contractsPath>*</contractsPath>
 					<contractDependency>
-						<groupId>${project.groupId}</groupId>
-						<artifactId>${project.artifactId}</artifactId>
-						<version>${project.version}</version>
+						<groupId>ch.keepcalm</groupId>
+						<artifactId>kboot-ddd</artifactId>
+						<version>0.0.0.RELEASE</version>
 					</contractDependency>
 					<contractsProperties>
 						<git.branch>master</git.branch>
 					</contractsProperties>
-					<!-- The contracts mode can't be classpath -->
-					<contractsMode>REMOTE</contractsMode>
+-->
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generateTests</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<!-- Add generated and test sources -->
