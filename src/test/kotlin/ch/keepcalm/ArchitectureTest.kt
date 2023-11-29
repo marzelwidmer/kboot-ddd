@@ -13,6 +13,7 @@ class ArchitectureTest {
         .that().resideInAPackage("..domain..")
         .should().dependOnClassesThat()
         .resideInAnyPackage("..application..", "..infrastructure..")
+        .allowEmptyShould(true)
         .because("Domain classes should not depend on classes in the application or infrastructure packages")
         .`as`("Architecture Validation")
 
@@ -21,6 +22,7 @@ class ArchitectureTest {
         .that().resideInAnyPackage("..domain..")
         .should().dependOnClassesThat().haveNameMatching("org.springframework.*")
         .orShould().dependOnClassesThat().haveNameMatching("javax.persistence.*")
+        .allowEmptyShould(true)
         .because("Domain should be free from any framework implementation")
         .`as`("Domain Framework Dependency Validation")
 

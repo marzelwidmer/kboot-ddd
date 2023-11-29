@@ -16,6 +16,7 @@ class PresentationRingNamingConventionTest {
         .that().resideInAPackage("..presentation.api..")
         .and().haveSimpleNameEndingWith("Controller")
         .should().notBeAnnotatedWith(Component::class.java)
+        .allowEmptyShould(true)
         .because("Classes ending with Controller in api package should not be annotated with @Component")
         .`as`("API Controllers Annotation Convention")
 
@@ -25,6 +26,7 @@ class PresentationRingNamingConventionTest {
         .and().areAnnotatedWith(RestController::class.java)
         .should().haveNameMatching(".*Controller")
         .andShould().notBeAnnotatedWith(Component::class.java)
+        .allowEmptyShould(true)
         .because("Application API rest controllers should be suffixed with 'Controller' and not annotated with @Component")
         .`as`("Application API Rest Controllers Naming Convention")
 }

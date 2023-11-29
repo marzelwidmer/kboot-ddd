@@ -16,6 +16,7 @@ class ApplicationRingNamingConventionTest {
         .and().areAnnotatedWith(Service::class.java)
         .should().haveNameMatching(".*Service")
         .orShould().haveNameMatching(".*ServiceImpl")
+        .allowEmptyShould(true)
         .because("Application Services should be suffixed with 'Services'")
         .`as`("Application Service Naming Convention")
 

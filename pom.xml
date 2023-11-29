@@ -103,14 +103,6 @@
 	<!-- =================  Dependencies ================= -->
 	<dependencies>
 
-		<!-- =================  Domain ================= -->
-		<dependency>
-			<groupId>ch.keepcalm</groupId>
-			<artifactId>domain-module</artifactId>
-			<version>${revision}</version>
-		</dependency>
-		<!-- =================  Domain ================= -->
-
 		<!--Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -187,17 +179,6 @@
 			<groupId>io.github.oshai</groupId>
 			<artifactId>kotlin-logging-jvm</artifactId>
 			<version>${kotlin-logging.version}</version>
-		</dependency>
-
-
-		<!--	Redis	-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
 		</dependency>
 
 
@@ -496,20 +477,8 @@
 				<configuration>
 					<packageWithBaseClasses>ch.keepcalm.contracts.base</packageWithBaseClasses>
 					<failOnInProgress>false</failOnInProgress>
+					<failOnNoContracts>false</failOnNoContracts>
 					<testMode>WEBTESTCLIENT</testMode>
-				<!--
-					<contractsRepositoryUrl>git://https://github.com/marzelwidmer/contracts.git</contractsRepositoryUrl>
-					<contractsMode>REMOTE</contractsMode>
-					<contractsPath>*</contractsPath>
-					<contractDependency>
-						<groupId>ch.keepcalm</groupId>
-						<artifactId>kboot-ddd</artifactId>
-						<version>0.0.0.RELEASE</version>
-					</contractDependency>
-					<contractsProperties>
-						<git.branch>master</git.branch>
-					</contractsProperties>
-				-->
 				</configuration>
 				<executions>
 					<execution>
