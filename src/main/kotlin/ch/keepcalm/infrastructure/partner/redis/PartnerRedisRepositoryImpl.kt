@@ -1,8 +1,8 @@
 package ch.keepcalm.infrastructure.partner.redis
 
-import ch.keepcalm.ddd.partner.Partner
-import ch.keepcalm.ddd.partner.PartnerId
-import ch.keepcalm.ddd.partner.PartnerName
+import ch.keepcalm.domain.partner.Partner
+import ch.keepcalm.domain.partner.PartnerId
+import ch.keepcalm.domain.partner.PartnerName
 import ch.keepcalm.domain.partner.PartnerRepository
 import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.Profile

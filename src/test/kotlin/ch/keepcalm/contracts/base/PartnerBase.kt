@@ -2,9 +2,10 @@ package ch.keepcalm.contracts.base
 
 import ch.keepcalm.presentation.api.partner.PartnerController
 import ch.keepcalm.application.partner.PartnerService
-import ch.keepcalm.ddd.partner.Partner
-import ch.keepcalm.ddd.partner.PartnerId
-import ch.keepcalm.ddd.partner.PartnerName
+import ch.keepcalm.domain.partner.Partner
+import ch.keepcalm.domain.partner.PartnerId
+import ch.keepcalm.domain.partner.PartnerName
+
 import io.restassured.module.webtestclient.RestAssuredWebTestClient
 import org.junit.jupiter.api.BeforeEach
 import org.mockito.Mockito

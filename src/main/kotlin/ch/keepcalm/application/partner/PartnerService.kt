@@ -1,6 +1,7 @@
 package ch.keepcalm.application.partner
 
-import ch.keepcalm.ddd.partner.Partner
+import ch.keepcalm.domain.partner.Partner
+
 
 interface PartnerService {
     fun createPartner(name: String)

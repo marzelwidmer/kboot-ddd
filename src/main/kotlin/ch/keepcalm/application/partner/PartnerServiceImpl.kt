@@ -1,8 +1,8 @@
 package ch.keepcalm.application.partner
 
-import ch.keepcalm.ddd.partner.Partner
-import ch.keepcalm.ddd.partner.PartnerId
-import ch.keepcalm.ddd.partner.PartnerName
+import ch.keepcalm.domain.partner.Partner
+import ch.keepcalm.domain.partner.PartnerId
+import ch.keepcalm.domain.partner.PartnerName
 import ch.keepcalm.domain.partner.PartnerRepository
 import org.springframework.stereotype.Service
 import ch.keepcalm.infrastructure.logging.logger

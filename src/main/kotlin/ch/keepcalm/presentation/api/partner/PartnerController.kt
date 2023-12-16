@@ -1,7 +1,7 @@
 package ch.keepcalm.presentation.api.partner
 
 import ch.keepcalm.application.partner.PartnerService
-import ch.keepcalm.ddd.partner.Partner
+import ch.keepcalm.domain.partner.Partner
 import org.springframework.web.bind.annotation.*
 
 @RestController

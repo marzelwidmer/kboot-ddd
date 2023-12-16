@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="KbootServiceApplication (inMemory)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="SpringBoot">
     <option name="ACTIVE_PROFILES" value="inMemory" />
-    <module name="application-module" />
+    <module name="kboot-ddd" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="ch.keepcalm.KbootServiceApplicationKt" />
     <method v="2">
       <option name="Make" enabled="true" />
