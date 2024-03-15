@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+metadata:
+  name: demo-service
+build:
+  artifacts:
+  - image: demo-service
+    jib:
+      args:
+      - -Pjib,integration,contracts,documentation
+      fromImage: registry.access.redhat.com/ubi8/openjdk-17:latest
+      type: maven
+  tagPolicy:
+    sha256: {}
+deploy:
+  kustomize:
+    paths:
+    - k8s/installs/k3d
